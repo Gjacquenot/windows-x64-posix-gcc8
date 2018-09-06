@@ -1,0 +1,13 @@
+sudo: required
+services:
+- docker
+before_install:
+- echo "Before install"
+before_script:
+- docker pull gjacquenot/windows-x64-posix-gcc8 || true
+script:
+- docker build --pull --cache-from gjacquenot/windows-x64-posix-gcc8 --tag gjacquenot/ssc_build_debian9_gcc8 .
+after_script:
+- docker images
+notifications:
+  email: true
