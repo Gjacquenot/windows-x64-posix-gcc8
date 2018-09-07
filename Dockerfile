@@ -11,7 +11,7 @@ RUN wget https://ftp.gnu.org/gnu/gcc/gcc-8.2.0/gcc-8.2.0.tar.gz -O gcc.tar.gz &&
     cd ..
 RUN mkdir -p gcc_build && \
     cd gcc_build && \
-    ../gcc_src/configure --prefix=/usr/src/mxe_gcc8 --enable-languages=c,c++,fortran --disable-multilib && \
+    ../gcc_src/configure --prefix=/usr/src/mxe_gcc8 --host=x86_64-w64-mingw32 --enable-languages=c,c++,fortran --disable-multilib && \
     make && \
     make install && \
     cd .. && \
