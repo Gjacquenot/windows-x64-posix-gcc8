@@ -1,6 +1,10 @@
 sudo: required
 services:
 - docker
+env:
+  global:
+  - DOCKER_USERNAME=gjacquenot
+  - secure: h64JUAwbw9IZthf0sDwY42WVjcADCVt6wguhtTL53lmcaI42RhPzgBd3haZJsn2vH/ERwkw4D2diwnDhRbncbJLeGFvIhzaCmdHkZ0lLjtW37sbalzVydXKOmVrpIGALSsHveTpngIqDYUK7UeHoljuGsOn4AtTs5okgCWf6/ywve+out+IbqJlgUaSiqbpFReV3RWQA3YBxG5mopXMTH4lf00cFy2wdirAX2M65By3hyQ1thEN6A2oopA2IZyXZHPI1r04vbLO4RtmjvpXrK9S2EQm/Aj/dui8CzAadwVfSVvZ4x1iyqxiEg6yHWnaU6hmuyLC9Na6PHFTwLk2cKdvOe8aI4wmvFJK7u+gWUyxkMBKQIh4qrDseKP/KISQRjqxaSH8CEYKTtiCWWK/Nd5nhuz0hnAncBgMldGRaBcm+EBoIg3OeRjg1KPJAtll/JH8aMn20mXJjyrpWKVkqkWcpUIzoWkiijXzxj3rtafpu0cds0hX33yGiv+McIBil3PI8LG2IioT+Vwun7UlerLuMzN5uCZIWm/K6vFFDKu/aySXaqlNda/pzpRaOMu/emn75Pc5FSPJMR3i6cUlfYwHOQB8l7VbCbwJHJCZrA46q8B58q/DbEMe133tRgNPZnW+C3SVRG424gkwm4l5mhnrFjV/5g+ZJvpy077rrpcs=
 before_install:
 - echo "Before install"
 before_script:
@@ -9,5 +13,11 @@ script:
 - docker build --pull --cache-from gjacquenot/windows-x64-posix-gcc8 --tag gjacquenot/ssc_build_debian9_gcc8 .
 after_script:
 - docker images
+after_success:
+- if [[ "$TRAVIS_BRANCH" == "master" ]];
+  then
+  docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
+  docker push gjacquenot/windows-x64-posix-gcc8;
+  fi
 notifications:
   email: true
