@@ -1,9 +1,8 @@
 FROM dockcross/windows-x64-posix
-ADD gcc8.mk /usr/src/mxe/src/.
+RUN mkdir -p /usr/src/mxe/plugins/gcc8
+ADD gcc8-overlay.mk /usr/src/mxe/plugins/gcc8
+ADD gcc8.patch /usr/src/mxe/plugins/gcc8
 RUN cd /usr/src/mxe && \
     make \
-        MXE_TARGETS=x86_64-w64-mingw32.static \
-        MXE_TARGET_ARCH=x86_64 \
-        MXE_TARGET_THREAD=.posix \
-        gcc8
-
+        MXE_PLUGIN_DIRS=plugins/gcc8 \
+        gcc
