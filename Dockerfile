@@ -46,15 +46,15 @@ RUN git clone https://github.com/mxe/mxe && \
         MXE_PLUGIN_DIRS=plugins/gcc8 \
         gcc
 
-RUN /mxe/usr/bin/x86_64-w64-w64-mingw32.static-gcc --version && \
-    /mxe/usr/bin/x86_64-w64-w64-mingw32.static-g++ --version && \
-    /mxe/usr/bin/x86_64-w64-w64-mingw32.static-gfortran --version
+RUN /mxe/usr/bin/x86_64-w64-mingw32.static-gcc --version && \
+    /mxe/usr/bin/x86_64-w64-mingw32.static-g++ --version && \
+    /mxe/usr/bin/x86_64-w64-mingw32.static-gfortran --version
 
 RUN echo "program test" > test.f90 && \
     echo "integer, parameter :: dp = kind(1.d0)" >> test.f90 && \
     echo "real(kind=dp) :: vec(2,3,3,6,2,3,12,8)" >> test.f90 && \
     echo "end program" >> test.f90 && \
     cat test.f90 && \
-    /mxe/usr/bin/x86_64-w64-w64-mingw32.static-gfortran -std=f2008 test.f90 -o test.exe && \
+    /mxe/usr/bin/x86_64-w64-mingw32.static-gfortran -std=f2008 test.f90 -o test.exe && \
     wine ./test.exe
 
