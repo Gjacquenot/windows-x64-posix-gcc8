@@ -10,7 +10,7 @@ before_install:
 before_script:
 - docker pull gjacquenot/windows-x64-posix-gcc8 || true
 script:
-- travis_wait 60 docker build --pull --cache-from gjacquenot/windows-x64-posix-gcc8 --tag gjacquenot/ssc_build_debian9_gcc8 .
+- travis_wait 60 docker build --pull --cache-from gjacquenot/windows-x64-posix-gcc8 --tag gjacquenot/windows-x64-posix-gcc8 .
 after_script:
 - docker images
 after_success:
