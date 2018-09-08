@@ -39,4 +39,3 @@ RUN git clone https://github.com/mxe/mxe && \
     make \
         MXE_PLUGIN_DIRS=plugins/gcc8 \
         gcc
-
